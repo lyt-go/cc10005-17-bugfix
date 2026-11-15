@@ -22,10 +22,16 @@ class ActionResult(BaseModel):
 
 
 class EntryPayload(BaseModel):
-    """登记或修改一条业务记录时提交的字段集合。"""
+    """登记或修改一条业务记录时提交的字段集合。
+
+    ``action`` 与常用动作参数同时允许放在顶层，兼容只传 ``{"action": "..."}``
+    的调用方；路由层会把它并入 ``values`` 统一处理。
+    """
 
     values: dict[str, Any] = Field(default_factory=dict)
     remark: str | None = None
+    action: str | None = None
+    reason: str | None = None
 
 
 
